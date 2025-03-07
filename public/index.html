@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>School Management System</h1>
+
+    <!-- Form to Add Schools -->
+    <form id="addSchoolForm" class="form">
+      <h2>Add a School</h2>
+      <label for="name">School Name:</label>
+      <input type="text" id="name" placeholder="Enter school name" required>
+      <label for="address">Address:</label>
+      <input type="text" id="address" placeholder="Enter school address" required>
+      <label for="latitude">Latitude:</label>
+      <input type="number" id="latitude" placeholder="e.g., 12.9716" step="any" required>
+      <label for="longitude">Longitude:</label>
+      <input type="number" id="longitude" placeholder="e.g., 77.5946" step="any" required>
+      <button type="submit" class="btn">Add School</button>
+    </form>
+
+    <!-- Form to Search Nearby Schools -->
+    <form id="searchSchoolsForm" class="form">
+      <h2>Find Nearby Schools</h2>
+      <label for="userLat">Your Latitude:</label>
+      <input type="number" id="userLat" placeholder="Enter your latitude" step="any" required>
+      <label for="userLon">Your Longitude:</label>
+      <input type="number" id="userLon" placeholder="Enter your longitude" step="any" required>
+      <button type="submit" class="btn">Search Schools</button>
+    </form>
+
+    <!-- Results Section -->
+    <div class="results">
+      <h2>Nearby Schools</h2>
+      <ul id="schoolList"></ul>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -13,20 +13,39 @@ exports.addSchool = (req, res) => {
     });
 };
 
+
 exports.listSchools = (req, res) => {
-    const { lat, lon } = req.query;
+    const { lat, lon } = req.query; // Extract latitude and longitude from query parameters
+
+    console.log('Query Params Received:', req.query); // Debug log (leave this in for testing!)
+
+    // Validate query parameters
     if (!lat || !lon) {
         return res.status(400).send({ message: 'Latitude and Longitude are required!' });
     }
 
-    getSchools((err, schools) => {
-        if (err) return res.status(500).send(err);
+    const latNum = parseFloat(lat); // Convert latitude to a number
+    const lonNum = parseFloat(lon); // Convert longitude to a number
 
+    // Fetch schools from the database using getSchools
+    getSchools((err, schools) => {
+        if (err) {
+            console.error('Error fetching schools:', err); // Log the error
+            return res.status(500).send({ message: 'Failed to retrieve schools!' });
+        }
+
+        // Calculate distances for each school
         schools.forEach(school => {
-            school.distance = calculateDistance(lat, lon, school.latitude, school.longitude);
+            school.distance = calculateDistance(latNum, lonNum, school.latitude, school.longitude);
+            console.log(`Distance to ${school.name}:`, school.distance); // Debug log for each distance
         });
 
+        // Sort schools by distance
         schools.sort((a, b) => a.distance - b.distance);
+        console.log('Sorted Schools:', schools); // Debug log for sorted schools
+
+        // Send the sorted schools back to the frontend
         res.send(schools);
     });
 };
+
